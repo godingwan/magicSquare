@@ -15,7 +15,7 @@
 
 using namespace std;
 
-bool checkUnique(int s[][4], int num){
+bool checkUnique(int s[][5], int num){
   for (int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
       if (s[i][j] == 0)
@@ -27,7 +27,7 @@ bool checkUnique(int s[][4], int num){
   return true;
 }
 
-void initializeArr(int s[][4], int size = 4){
+void initializeArr(int s[][5], int size = 4){
   // Generate random number
   srand(time(NULL));
   bool uniq = false;
@@ -36,6 +36,7 @@ void initializeArr(int s[][4], int size = 4){
   // Iterate through the 2D array
   for (int i = 0; i < 4; i++){
     for (int j = 0; j < 4; j++){
+      // Continue getting a number until it is unique
       while (uniq == false){
         num = rand() % 16 + 1;
         uniq = checkUnique(s, num);
@@ -46,7 +47,7 @@ void initializeArr(int s[][4], int size = 4){
   }
 }
 
-void displayArr(int s[][4], int size = 4){
+void displayArr(int s[][5], int size = 4){
   // Iterate through the 2D array and display the element
   for (int i = 0; i < 4; i++){
     for (int j = 0; j < 4; j++){
@@ -56,13 +57,68 @@ void displayArr(int s[][4], int size = 4){
   }
 }
 
+bool magicSquare(int s[][5], int size = 4){
+  // Value to store diagonals
+  int d1=0, d2=0;
+
+  // Calulating the sum of each row and assigning it to subscript 4
+  for (int i = 0; i < 4; i++){
+    for (int j = 0; j < 4; j++){
+      s[i][4] += s[i][j];
+    }
+  }
+
+  // Calculating the sum of each col and assigning to to subscript 4
+  for (int j = 0; j < 4; j++){
+    for (int i = 0; i < 4; i++){
+      s[4][j] += s[i][j];
+    }
+  }
+
+  // Calculating the sum of the diagonal
+  for (int i = 0, j = 0; i < 4; i++, j++){
+    d1 += s[i][j];
+  }
+  for (int i = 3, j = 0; j < 4; i--, j++){
+    d2 += s[i][j];
+  }
+  
+  // See if the sum of everything are equal
+  if (s[0][4] == d1 && s[1][4] == d1 && s[2][4] == d1 && s[3][4] == d1 && s[4][0] == d1 && s[4][1] == d1 &&
+        s[4][2] == d1 && s[4][3] == d1 && d1 == d2)
+    return true;
+  else
+    return false;
+}
+
+void zeroArr(int s[][5], int size = 4){
+  for (int i = 0; i < 4; i++){
+    for (int j = 0; j < 4; j++){
+      s[i][j] = 0;
+    }
+  }
+}
+
 int main(){
-  // Create the 2D 4x4 array
-  int square [4][4] = {0};
+  // Create the 2D 5x5 array
+  int square [5][5] = {0};
+  bool mSq = false;
 
-  // Function call to fill in the array
-  initializeArr(square);
-  displayArr(square);
-
+  // Continue creating a new matrix until a magic square is found
+  while (mSq == false){
+    // Function call to fill in the array
+    initializeArr(square);
+    displayArr(square);
+    // Function call to determine if it is a magic square
+    mSq = magicSquare(square);
+    if (mSq == true)
+      cout << "Magic Square!" << endl;
+    else{
+      cout << "Not a Magic Square!" << endl;
+      // Zero out the array
+      zeroArr(square);
+    }
+  }
+  
   return 0;
 }
