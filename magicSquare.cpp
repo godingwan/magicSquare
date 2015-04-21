@@ -27,7 +27,7 @@ bool checkUnique(int s[][5], int num){
   return true;
 }
 
-void initializeArr(int s[][5], int size = 4){
+void initializeArr(int s[][5], int size = 5){
   // Generate random number
   srand(time(NULL));
   bool uniq = false;
@@ -47,7 +47,7 @@ void initializeArr(int s[][5], int size = 4){
   }
 }
 
-void displayArr(int s[][5], int size = 4){
+void displayArr(int s[][5], int size = 5){
   // Iterate through the 2D array and display the element
   for (int i = 0; i < 4; i++){
     for (int j = 0; j < 4; j++){
@@ -57,7 +57,7 @@ void displayArr(int s[][5], int size = 4){
   }
 }
 
-bool magicSquare(int s[][5], int size = 4){
+bool magicSquare(int s[][5], int size = 5){
   // Value to store diagonals
   int d1=0, d2=0;
 
@@ -91,9 +91,9 @@ bool magicSquare(int s[][5], int size = 4){
     return false;
 }
 
-void zeroArr(int s[][5], int size = 4){
-  for (int i = 0; i < 4; i++){
-    for (int j = 0; j < 4; j++){
+void zeroArr(int s[][5], int size = 5){
+  for (int i = 0; i < 5; i++){
+    for (int j = 0; j < 5; j++){
       s[i][j] = 0;
     }
   }
