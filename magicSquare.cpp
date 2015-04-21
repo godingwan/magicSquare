@@ -15,14 +15,33 @@
 
 using namespace std;
 
+bool checkUnique(int s[][4], int num){
+  for (int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      if (s[i][j] == 0)
+        return true;
+      else if (s[i][j] == num)
+        return false;
+    }
+  }
+  return true;
+}
+
 void initializeArr(int s[][4], int size = 4){
   // Generate random number
   srand(time(NULL));
+  bool uniq = false;
+  int num;
 
   // Iterate through the 2D array
   for (int i = 0; i < 4; i++){
     for (int j = 0; j < 4; j++){
-      s[i][j] = rand() % 16 + 1;
+      while (uniq == false){
+        num = rand() % 16 + 1;
+        uniq = checkUnique(s, num);
+      }
+      s[i][j] = num;
+      uniq = false;
     }
   }
 }
@@ -39,7 +58,7 @@ void displayArr(int s[][4], int size = 4){
 
 int main(){
   // Create the 2D 4x4 array
-  int square [4][4];
+  int square [4][4] = {0};
 
   // Function call to fill in the array
   initializeArr(square);
